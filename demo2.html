@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="200" height="200"></canvas>
+    <script>
+        var canvas = document.querySelector('#canvas'),
+        ctx = canvas.getContext('2d');
+        ctx.translate(canvas.width/2,canvas.height/2);//将画布移到屏幕中心
+
+        // 绘制圆形头部
+        ctx.beginPath();
+        var grd=ctx.createLinearGradient(0,-100,0,100);
+        grd.addColorStop(0,'#FDF390');
+        grd.addColorStop(1,'#B97814');
+        ctx.fillStyle = grd;
+        ctx.strokeStyle = '#A86B14';
+        ctx.lineWidth = 5;
+        ctx.arc(0,0,100,0,2*Math.PI);
+        ctx.fill();
+        ctx.stroke();
+
+        //嘴巴
+        ctx.beginPath();
+        ctx.strokeStyle = '#935B06';
+        ctx.fillStyle = '#754800';
+        ctx.lineCap="round";//绘制圆形的结束线帽：
+        ctx.moveTo(-50,50);//贝塞尔曲线控制点1
+        ctx.quadraticCurveTo(0,110,50,50);//贝塞尔曲线控制点2和终点
+        ctx.lineTo(-50,50);
+        ctx.fill();
+        ctx.stroke();
+        //牙
+        ctx.beginPath();
+        ctx.lineWidth = 8;
+        ctx.strokeStyle = '#FFF';
+        ctx.moveTo(-38,56);
+        ctx.lineTo(38,56);
+        ctx.stroke();
+        //眼睛左
+        ctx.beginPath();
+        ctx.lineWidth = 5;
+        ctx.fillStyle = '#754800';
+        ctx.strokeStyle = '#935B06';
+        ctx.arc(-25,-25,10,0,2*Math.PI )
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.lineWidth = 5;
+        ctx.fillStyle = '#754800';
+        ctx.strokeStyle = '#935B06';
+        ctx.arc(25,-25,10,0,2*Math.PI )
+        ctx.fill();
+        ctx.stroke();
+
+    </script>
+</body>
+</html>

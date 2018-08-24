@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="200" height="200"></canvas>
+    <canvas id="canvas2" width="400" height="400"></canvas>
+    <script>
+        function No(ele){
+            var canvas = document.querySelector(ele),
+            ctx = canvas.getContext('2d');
+            function draw(x){
+                ctx.clearRect(0,0,200,200);
+                ctx.beginPath();
+                ctx.lineWidth = 20;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.moveTo(20,20);
+                ctx.lineTo(20+x,20+x);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.lineWidth = 20;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.moveTo(180,20);
+                ctx.lineTo(180-x,20+x);
+                ctx.stroke();
+            }
+            let x =0
+            function step() {
+                x++
+                if(x>=160){
+                    x = 0;
+                    setTimeout(()=>{
+                        step()
+                    },3000)
+                    return;
+                }
+                draw(x)
+                requestAnimationFrame(step)
+            }
+            step()
+        }
+        No('#canvas')
+        No('#canvas2')
+    </script>
+</body>
+</html>

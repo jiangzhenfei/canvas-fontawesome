@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="200" height="200"></canvas>
+    <div>
+        <canvas id="canvas2" width="300" height="300"></canvas>
+    </div>
+    <script>
+        function Battery(ele){
+            var canvas = document.querySelector(ele),
+            ctx = canvas.getContext('2d');
+            ctx.translate(canvas.width/2,canvas.height/2);//将画布移到屏幕中心
+            let height = canvas.width/2
+            let lineWidth = canvas.width/20        //线宽度
+            let baseLine = height-lineWidth/2      //x基准线
+            let baseHeight = height/2-lineWidth/2  //y基准线
+            let rightPoint1 =  baseLine- lineWidth;
+            let rightPoint2 =  baseHeight- 2*lineWidth;
+            let sourceX = baseLine- lineWidth;
+            let sourceY = baseHeight- lineWidth;
+            let souceHeight = sourceY*2
+            let souceWidth = height
+            function drawBatteryShell(){
+                //电池壳
+                ctx.beginPath();
+                ctx.lineWidth = lineWidth;
+                ctx.moveTo(-baseLine,-baseHeight);
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.lineTo(-baseLine,baseHeight);
+                ctx.lineTo(rightPoint1,baseHeight);
+                ctx.lineTo(rightPoint1,rightPoint2);
+                ctx.lineTo(baseLine,rightPoint2);
+                ctx.lineTo(baseLine,-rightPoint2);
+                ctx.lineTo(rightPoint1,-rightPoint2);
+                ctx.lineTo(rightPoint1,-baseHeight);
+                ctx.lineTo(-baseLine,-baseHeight);
+                ctx.stroke();
+            }
+            function drawBatterySource(x){
+                ctx.clearRect(-sourceX,-sourceY,souceWidth,souceHeight);
+                ctx.lineWidth = 0;
+                ctx.fillRect(-sourceX,-sourceY,x,souceHeight)
+            }
+            drawBatteryShell()
+            let x = 0;
+            function step() {
+                x =x+0.1
+                if(x>=souceWidth-1){
+                    x = 0;
+                }
+                drawBatterySource(x)
+                requestAnimationFrame(step)
+            }
+            step()
+        }
+        
+        Battery('#canvas')
+        Battery('#canvas2')
+     
+    </script>
+</body>
+</html>

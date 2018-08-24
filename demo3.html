@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="50" height="50"></canvas>
+    <script>
+        var canvas = document.querySelector('#canvas'),
+        ctx = canvas.getContext('2d');
+        ctx.translate(canvas.width/2,canvas.height/2);//将画布移到屏幕中心
+        let base = canvas.width/2
+        let bigCircleR = base/5
+        let smallCircleR = base/7
+        let baseR = base - bigCircleR
+        function draw(){
+            ctx.clearRect(-100,-100,200,200);
+            const location = [
+                {
+                    r:smallCircleR,
+                    x:0,
+                    y:-baseR
+                },
+                {
+                    r:bigCircleR,
+                    x:baseR/Math.sqrt(2),
+                    y:-baseR/Math.sqrt(2)
+                },
+                {
+                    r:smallCircleR,
+                    x:baseR,
+                    y:0
+                },
+                {
+                    r:smallCircleR,
+                    x:baseR/Math.sqrt(2),
+                    y:baseR/Math.sqrt(2)
+                },
+                {
+                    r:smallCircleR,
+                    x:0,
+                    y:baseR
+                },
+                {
+                    r:smallCircleR,
+                    x:-baseR/Math.sqrt(2),
+                    y:baseR/Math.sqrt(2)
+                },
+                {
+                    r:smallCircleR,
+                    x:-baseR,
+                    y:0
+                },
+                {
+                    r:smallCircleR,
+                    x:-baseR/Math.sqrt(2),
+                    y:-baseR/Math.sqrt(2)
+                },
+            ]
+            for( var i = 0,length = location.length;i<length;i++ ){
+                let item = location[i]
+                ctx.beginPath();
+                ctx.fillStyle = '#000'
+                ctx.arc(item['x'],item['y'],item['r'],0,2*Math.PI )
+                ctx.fill();
+            }
+        }
+        function step() {
+            ctx.rotate(Math.PI*1/180);//正方向旋转30度
+            draw()
+            requestAnimationFrame(step)
+        }
+        draw()
+        step()
+    </script>
+</body>
+</html>
